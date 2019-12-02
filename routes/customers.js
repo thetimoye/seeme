@@ -1,32 +1,29 @@
 const express = require('express')
 const {validate, Customer} = require('../models/customer')
+// const asyncMiddleware = require('../middleware/async')
 
 const router = express.Router()
 
 
 // === FIND MANY ===
-findCustomers = () => {
-    router.get('/', async (req,res) => {
-        const result = await Customer
-         .find()
-         .sort({name: 1})
-     
-         !result 
-             ? res.status(404).send('No results found') 
-             : res.status(200).send(result)
-     })
-}
+router.get('/', async (req,res) => {
+    const result = await Customer
+     .find()
+     .sort({name: 1})
+ 
+     !result 
+         ? res.status(404).send('No results found') 
+         : res.status(200).send(result)
+ })
 
 // === FIND ONE ===
-findCustomer = () => {
-    router.get('/:id', async (req,res) => {
-        const one_customer = await Customer.findById(req.params.id)
-    
-        !one_customer 
-            ? res.status(404).send('No customer with ID found') 
-            : res.status(200).send(one_customer)
-    })
-}
+router.get('/:id', async (req,res) => {
+    const one_customer = await Customer.findById(req.params.id)
+
+    !one_customer 
+        ? res.status(404).send('No customer with ID found') 
+        : res.status(200).send(one_customer)
+})
 
 // === CREATE CUSTOMER ===
 createCustomer = () => {
@@ -77,9 +74,6 @@ deleteCustomer = () => {
     })
     
 }
-
-findCustomers()
-findCustomer()
 createCustomer()
 updateCustomer()
 deleteCustomer()
